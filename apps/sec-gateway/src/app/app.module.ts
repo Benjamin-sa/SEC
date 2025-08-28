@@ -6,6 +6,8 @@ import { ThrottlerGuard } from '@nestjs/throttler';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GatewayModule } from './gateway/gateway.module';
+import { CachingModule } from './caching/caching.module';
+import { SecHttpModule } from './sec-http/sec-http.module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { GatewayModule } from './gateway/gateway.module';
         limit: 10, // 10 requests per second (SEC requirement)
       },
     ]),
+    CachingModule,
+    SecHttpModule,
     GatewayModule,
   ],
   controllers: [AppController],
