@@ -72,7 +72,7 @@ describe('ParserController', () => {
     it('should return error for missing form type', async () => {
       const parseRequest = {
         rawData: '<test>data</test>',
-        formType: undefined as any
+        formType: undefined as unknown as FormType
       };
 
       await expect(controller.parseDocument(parseRequest))
