@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  sec-gateway:
+    build:
+      context: .
+      dockerfile: apps/sec-gateway/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - SEC_API_BASE_URL=https://data.sec.gov
+      - SEC_API_USER_AGENT=MySaaS Inc. contact@mysaas.com
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PORT=3000
+    depends_on:
+      - redis
+    networks:
+      - sec-network
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - sec-network
+
+volumes:
+  redis-data:
+
+networks:
+  sec-network:
+    driver: bridge
